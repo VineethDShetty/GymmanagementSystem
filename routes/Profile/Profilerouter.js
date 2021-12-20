@@ -6,7 +6,7 @@ const Profile=require("../../controllers/Profile/profilecontroller")
 router.get('/', async(req, res) => {
 
     await authenticate.auth(req, res);
-  const profile=  await Profile.fetch(req, res);
+  const profile= await Profile.fetch(req, res);
     res.render('profile', { layout: false,profile:profile })
 });
 

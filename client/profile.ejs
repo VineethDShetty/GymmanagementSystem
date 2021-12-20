@@ -121,8 +121,8 @@
                     <form  >
                         <div class="row mt-2">
                             <div class="col-md-6"><label class="labels">Name</label>
-                                <input type="text" name="username"
-                                    class="form-control" placeholder="Username" value="<%-profile.name%>"  style="width: 200px;" required></div>
+                                <input type="text" name="name"
+                                    class="form-control" placeholder="Username" value="<%-profile.name%>"  style="width: 200px;" ></div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-12"><label class="labels">Email ID</label><input type="email"
@@ -155,7 +155,7 @@
             const form = document.querySelector('form');
             const error = document.querySelector('.error');
 
-            const name = form.username.value;
+            const name = form.name.value;
             const email = form.email.value;
             const phoneno=form.phoneno.value;
             const address=form.address.value;
@@ -166,18 +166,18 @@
         const res=await fetch("/profile/update",{
                 credentials:"include",
                 method:"POST",
-                body:JSON.stringify({name:name,email:email,phoneno:phoneno,address:address}),
+                body:JSON.stringify({username:name,useremail:email,phoneno:phoneno,address:address}),
                 headers: { 'Content-Type': 'application/json' }
             })
 
             const r=await res.json();
 
             if(r.status==200){
-                location.assign("/profile");
+                window.location.reload();
             }
 
 
-            // window.location.reload();
+            
         }
     </script>
 </body>
