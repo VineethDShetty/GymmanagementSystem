@@ -1,0 +1,93 @@
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        .topnav{
+            background-color: #1c1c1b;
+            height: 80px;
+            position: relative;
+            
+        }
+        .logout{
+           /* float:right; */
+           float:right;
+           margin-right: 10px;
+           padding-top: 20px;
+           
+       }
+       .sidenav{
+           background-color:#1c1c1b ;
+           height: 200%;
+            width: 180px;
+            position: absolute;
+            z-index: 5;
+            overflow-x:hidden;
+           
+       }
+       .sidenav a{
+            color:white;
+            padding: 10px 10px 10px 1px;
+            text-decoration: none;
+            font-size: 20px;
+
+       }
+       .lists{
+           margin-bottom: 20px;
+       }
+       .log{
+           cursor: pointer;
+       }
+    </style>
+</head>
+
+<body>
+    <div class="topnav">
+    
+
+    <ul class="logout">
+        <li>
+            <a onclick="logout()" class="log"><span class="glyphicon glyphicon-log-in"></span> Logout</a>
+        </li>
+    </ul>
+    </div>
+    
+
+    <div class="sidenav">
+        <ul>
+            
+            <li class="lists"><a href="/home">Home</a></li>
+            <li class="lists"><a href="/team">Teams</a></li>
+            <li class="lists"><a href="/profile">Profile</a></li>
+        </ul>
+    </div>
+
+    <script>
+        async function logout() {
+            console.log(22);
+            try {
+                await fetch(`/logout`, {
+                    credentials: 'include',
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                }).then(
+                    (resp) => {
+                        console.log(11111111, resp);
+                        if (resp.status == 200) {
+                            location.assign("/")
+                        }
+                    })
+            } catch (e) {
+                console.log(e);
+            }
+
+
+        }
+    </script>
+</body>
+
+</html>

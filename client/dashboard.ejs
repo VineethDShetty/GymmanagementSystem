@@ -1,0 +1,374 @@
+<%- include('./partials/navigation') %>
+        
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/my-login.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/my-login.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/my-login.css">
+   
+    <style>
+
+       body{
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+        .card{
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 280px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            
+        }
+        .gridviews{
+           
+            display: flex;
+            flex-wrap: wrap;
+            margin-left:200px;
+            padding-left: 10px;
+            /* grid-column-gap: 10px;
+            grid-row-gap: 15px; */
+            /* grid-gap:10px; */
+            
+        }
+        .head{
+            margin-left:200px ;
+            margin-bottom: 40px;
+            margin-top: 0px;
+        }
+        .mulselect{
+            width: 30%;
+        }
+
+
+        
+    </style>
+
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script> -->
+
+</head>
+<body>
+    
+   
+   
+   <div class="head">
+
+    <h1 style=>Welcome Back  <%-name %></h1>
+    <br />
+    <br />
+<% if(user_type=='A'){ %>
+    <%/*%><button id="addclick">Add</button><%*/%>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+        Add Plan
+    </button>
+    <%}%>
+    
+    <% if(user_type=='U' && currentplan.length!=0){ %>
+    <h2 style="font-weight: bold;">Current Plan</h2>
+        
+        <div class="card">
+            <img src="./images/image.png" style="width:100%">
+            <div class="container">
+                <h4> <b>Plan Name: <%-currentplan[0].plan_name%></b></h4>
+        
+                <p>Plan Description: <%-currentplan[0].description%>
+                </p>
+                <p>Price : <%-currentplan[0].price%>
+                </p>
+        
+                
+            </div>
+        </div>
+        
+        <%}%>
+
+   </div>
+
+    <h2 style="font-weight: bold; margin-left: 200px;">All Plan</h2>
+    <div class="gridviews">
+        
+
+
+        
+
+
+    
+    
+   <%for(var i=0;i<list.length;i++){ %>
+  
+    <div class="card" >
+        <img src="/images/image.png"  style="width:100%">
+        <div class="container">
+         <h4> <b>Plan Name: <%-list[i].plan_name%></b></h4>
+
+        <p>Plan Description: <%-list[i].description%></p>
+        <p>Price : <%-list[i].price%></p>
+    <% if(user_type=='U' ){ %>
+        <button style="background-color: blue ; width: 70px;height: 20px; color:white; border-radius: 5px; margin-left: 150px; margin-bottom: 20px;" onclick="applyplan('<%=list[i].planid%>')">Apply</button>
+    <%}%>
+        </div>
+    </div>
+    <%}%>
+</div> 
+<%/*%>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="card-title"  id="exampleModalLongTitle">Add Plan</h5>
+                <form method="POST" class="my-login-validation" novalidate="">
+                <div class="form-group">
+                    <label style="margin-top: 10px; margin-left: 0px;" for="email">Plan Name</label>
+                    <input id="email" type="text" class="form-control" name="planname" value="" required autofocus>
+                    <div class="invalid-feedback ">
+                       Plan Name is invalid 
+                    </div>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 
+                </button>
+                </form>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%*/%>
+
+<div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" style="margin-top: 100px;" role="document">
+        <form >
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Add Plan</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            
+            <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    <label data-error="wrong" data-success="right" for="defaultForm-email">Plan Name</label>
+                    
+                    <input type="text" id="defaultForm-email" class="form-control validate" name="planname">
+                 
+                </div>
+
+                <div class="md-form mb-4">
+                    <label data-error="wrong" data-success="right" for="defaultForm-pass">Plan Description</label>
+                    <input type="text" id="defaultForm-pass" class="form-control validate" name="plandescription">
+                    
+                </div>
+
+                <div class="md-form mb-4">
+                    <label data-error="wrong" data-success="right" for="defaultForm-pass">Price</label>
+                    <input type="text" id="defaultForm-pass" class="form-control validate" name="price">
+                    
+                </div>
+                <div class="md-form mb-4">
+                <label class="form-label select-label">Select Trainer</label>
+                <select class="select" style="width:100%; height:40px" name="trainer"   required>
+                     <option value="none" selected disabled hidden>Select an option</option>
+                     <%if(user_type=="A"){%>
+                    <%for(var i=0;i<trainer.length;i++){ %>
+                    
+                     <option value="<%-trainer[i].user_id%>"><%-trainer[i].name%></option>
+                    
+                    <%}%>
+                    <%}%>
+                </select>
+                </div>
+            </div>
+            <div class=" d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary" style="margin-bottom: 10px;" onclick="addplan()">Submit</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+    <% if(typeof user_type!='undefined'){%>
+        <% var user_type=user_type %>
+         <script>
+        //  $(document).ready(function(){
+        //      $(".mulselect").select2({
+        //          placeholder: "Select Trainer",
+        //          tags:true,
+        //          tokenSeparators:['/',',',','," "]
+        //      })
+        //  })
+
+        // $(document).ready(function () {
+        //         $('.mdb-select').materialSelect();
+        //     });
+
+        // $('select').selectpicker();
+
+            let user = JSON.stringify(user_type);
+            console.log(111,user);
+            localStorage.setItem('info', JSON.stringify({ 'user': user }));
+        </script>
+        <% } %>
+     <!-- <button id="hide">Close</button> -->
+
+    <script>
+       
+        // localStorage.setItem("user",user_type);
+        // console.log(1234,list[0]);
+
+        // const item=localStorage.getItem("user");
+
+
+        // document.write(list);
+    //   async  function addplan(){
+    (function(){
+
+        // console.log("user",user_type);
+        console.log(124)
+       var dialog=document.getElementById("myFirstDialog");
+        console.log(dialog);
+       document.getElementById('addclick').onclick=function(){
+           dialog.show();
+       }
+        console.log(2333);
+
+        })();
+
+        // async function addplan() {
+
+        //     console.log(444444);
+        //     var name=form.planname.value;
+
+        //     console.log(12345,name);
+
+        async function addplan(){
+        const form = document.querySelector('form');
+            const error = document.querySelector('.error');
+            // form.addEventListener('submit', async (e) => {
+            //     e.preventDefault();
+            //     console.log('pressed')
+            
+            const planname=form.planname.value;
+            const plandescription = form.plandescription.value;
+            const price=form.price.value;
+            console.log("trainervalue",form.trainer.value)
+            const trainer=form.trainer.value;
+
+
+            console.log
+
+            console.log(1111,planname)
+            console.log(2222,plandescription)
+            console.log(3333,trainer)
+            
+        try {
+
+
+                const res = await fetch('/addplan', {
+                    method: 'POST',
+                    body: JSON.stringify({planname: planname, price:price,plandescription: plandescription,trainer:trainer }),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                console.log(1234,res);
+                console.log(22222,res.status);
+                // const data = await res.json();
+                // console.log(123, data);
+                // if (data.errors) {
+                //     error.textContent = data.errors;
+                // }
+                if (res.status == 200) {
+                    console.log(22);
+                    window.location.reload();
+                    // location.assign("/home");
+                    // location.assign('/home');
+                }
+        }
+            catch (err) {
+                console.log(err);
+            }
+            }
+        
+      async function applyplan(i){
+        console.log(123,i);
+
+         const res = await fetch(`/planapply?id=${i}`, {
+              method: 'POST',
+             headers: { 'Content-Type': 'application/json' }
+          });
+
+          const r=await res.json();
+
+          if(r.status==200){
+              window.location.reload();
+          }
+
+      }  
+    </script>
+
+
+<% /* %>
+    <dialog id="myFirstDialog"
+        style="width:20%;background-color:#4b4276;border:1px dotted black; align-items: center; margin-left: 300px; ">
+
+        <form action="/addplan">
+            <label>Plan Name</label>
+            <input type="text" placeholder="Enter Plan Name" name="planname" required>
+            <br />
+            <br />
+            <label>Description</label>
+            <input type="text" placeholder="Enter Plan Description" name="plandescription">
+            <br />
+            <br />
+            <label>Price:</label>
+            <input type="Number" placeholder="Enter Price" name="price" required>
+            <br />
+            <br />
+
+            <select name="trainer">
+                <option value="Vineeth">Vineeth</option>
+                <option vakue="Shetty">Shetty</option>
+                <option value="Kini">Kini</option>
+            </select>
+            <input type="submit" value="submit" style="margin-left: 50px;">
+
+
+
+        </form>
+    </dialog>
+
+    <% */ %>
+</body>
+</html>

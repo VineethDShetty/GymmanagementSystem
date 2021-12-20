@@ -1,0 +1,187 @@
+<%- include('./partials/navigation') %>
+
+<%/*%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form{
+            margin-left: 300px;
+            margin-top: 300px;
+
+        }
+        #address{
+            height: 100px;
+            width: 400px;
+        }
+        #button{
+            width: 50px;
+            color: black;
+            background-color: blue;
+            
+        }
+
+    </style>
+</head>
+<body>
+   <form action="/profileupdate" >
+       <label for="">Name</label>
+       <input type="text" name ="Name" value="Vineeth">
+       <br>
+       <br>
+        <label for="">Date of Birth</label>
+       <input type="date" name="DOB" id="" value="27-10-2001">
+    <br>
+    <br>
+    <label for="">Email</label>
+       <input type="email" name="Email" id="">
+    <br>
+    <br>
+
+    <label for="">Phone Number</label>
+    <input type="number" name="phone" id="">
+    <br>
+    <br>
+
+    <label for="">Address</label>
+    <input type="text" name="address" id="address" width="100%">
+    <br>
+    <br>
+
+    <input type="submit" id="button" value="Save"></input>
+
+   </form>
+
+
+
+</body>
+</html>
+<%*/%>
+
+
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css'>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+</head>
+<style>
+    body {
+        background: rgba(233, 225, 233, 0.774);
+        
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #BA68C8
+    }
+
+    .profile-button {
+      
+        box-shadow: none;
+        border: none
+    }
+
+    .profile-button:hover {
+        background: #682773
+    }
+
+    .profile-button:focus {
+        background: #682773;
+        box-shadow: none
+    }
+
+    .profile-button:active {
+        background: #682773;
+        box-shadow: none
+    }
+
+    .back:hover {
+        color: #682773;
+        cursor: pointer
+    }
+
+    
+</style>
+
+<body>
+    <div class="container rounded bg-white mt-5 mb-5" style="margin-left: 600px; padding-left: 100px; width:400px; ">
+        <div class="row">
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5" >
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Profile Settings</h4>
+                    </div>
+                    <form  >
+                        <div class="row mt-2">
+                            <div class="col-md-6"><label class="labels">Name</label>
+                                <input type="text" name="username"
+                                    class="form-control" placeholder="Username" value="<%-profile.name%>"  style="width: 200px;" required></div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12"><label class="labels">Email ID</label><input type="email"
+                                    class="form-control"  name="email" value="<%-profile.email%>" style="width: 200px;" ></div>
+                            <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text"
+                                    class="form-control"  name="phoneno" style="width: 200px;" placeholder="enter phone number" value="<%-profile.phoneno%>"
+                                    ></div>
+                            <div class="col-md-12"><label class="labels">Address </label><input type="text"
+                                    name="address" class="form-control" style="width: 200px;" name="address" placeholder="Enter Address" value="<%-profile.address%>"></div>
+                        </div> 
+                        
+                        <div class="mt-5 text-center">
+                            <button class="btn btn-info profile-button" style="margin-left: 150px; width: 80px;" type="submit" onclick="saveprofile()" >Save</button>
+                        </div>
+                </div>
+            </div>
+            </form>
+
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+    <script>
+
+        async function saveprofile(){
+        
+            const form = document.querySelector('form');
+            const error = document.querySelector('.error');
+
+            const name = form.username.value;
+            const email = form.email.value;
+            const phoneno=form.phoneno.value;
+            const address=form.address.value;
+
+            console.log(223, name,email,phoneno,address);
+
+
+        const res=await fetch("/profile/update",{
+                credentials:"include",
+                method:"POST",
+                body:JSON.stringify({name:name,email:email,phoneno:phoneno,address:address}),
+                headers: { 'Content-Type': 'application/json' }
+            })
+
+            const r=await res.json();
+
+            if(r.status==200){
+                location.assign("/profile");
+            }
+
+
+            // window.location.reload();
+        }
+    </script>
+</body>
+
+</html>
+
+

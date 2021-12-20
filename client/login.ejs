@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Login Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/my-login.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/my-login.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="js/my-login.js"></script>
+    </style>
+</head>
+<body class="my-login-page">
+    <section class="h-100">
+        <div class="container h-100">
+            <div class="row justify-content-md-center h-100">
+                <div class="card-wrapper">
+    
+                    <div class="card fat">
+                        <div class="card-body" >
+                            <h4 class="card-title">Login</h4>
+                            <form method="POST" class="my-login-validation" novalidate="">
+                                <div class="form-group">
+                                    <label for="email">E-Mail Address</label>
+                                    <input id="email" type="email" class="form-control" name="email" value="" required
+                                        autofocus>
+                                    <div class="invalid-feedback ">
+                                        Email is invalid
+                                    </div>
+                                </div>
+    
+                                <div class="form-group">
+                                    <label for="password">Password
+                                        <a href="/" class="float-right">
+                                            Forgot Password?
+                                        </a>
+                                    </label>
+                                    <input id="password" type="password" class="form-control" name="password" required
+                                        data-eye>
+                                    <div class="invalid-feedback">
+                                        Password is required
+                                    </div>
+                                </div>
+    
+                                
+                                <div class="error"></div>
+                                <div class="form-group m-0">
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        Login
+                                    </button>
+                                </div>
+                                <div class="mt-4 text-center">
+                                    Don't have an account? <a href="/">Create One</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        Copyright &copy; 2017 &mdash; Your Company
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        const form = document.querySelector('form');
+        const error = document.querySelector('.error');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            console.log('pressed')
+            // reset errors
+            // error.textContent = '';
+            // get values
+            
+            const email = form.email.value;
+            const password = form.password.value;
+            
+            // console.log(123,username)
+            console.log(1234, email);
+            console.log(123455, password);
+            // console.log(123467, cpassword);
+
+
+            // const password = form.password.value;
+            // const password2 = form.password2.value;
+            try {
+                const res = await fetch('/login', {
+                    method: 'POST',
+                    body: JSON.stringify({email, password}),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                console.log(2222,res);
+                
+                // console.log(123, data);
+                // if (data) {
+
+                //     error.textContent = data;
+                // }
+                // 
+                console.log("123",res.status)
+                const data = await res.json();
+                console.log(data);
+                // if(res.)
+                if (res.status==200) {
+                    console.log(22);
+                    location.assign('/home');
+                }
+                else if (res.status==403){
+                    error.textContent=data;
+                
+
+                }
+                else if (res.status==404){
+                    error.textContent=data;
+                }
+                else if (res.status==400){
+                    error.textContent=data.msg;
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
+        });
+    </script>
+</body>
+</html>
