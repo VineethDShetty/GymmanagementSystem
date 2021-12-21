@@ -6,7 +6,7 @@ module.exports.fetchplan = async (req, res) => {
     try {
 
 
-        const plans = await pool.query("select * from plans");
+        const plans = await pool.query("select * from plans p ,traineroptions t,profile pr where t.trainerid=pr.user_id and p.planid=t.planid");
 
 
         
@@ -33,7 +33,7 @@ module.exports.currentplan = async (req, res) => {
 
         if (plan.rowCount != 0) {
 
-            const currentplan = await pool.query("select * from plans where planid=$1", [plan.rows[0].planid]);
+            const currentplan = await pool.query("select * from plans p , traineroptions t ,profile pr where p.planid=$1 and t.planid=p.planid and t.trainerid=pr.user_id", [plan.rows[0].planid]);
 
             console.log(22, currentplan.rows)
             return currentplan.rows
@@ -129,6 +129,32 @@ module.exports.fetchuser = async (req, res) => {
 
         console.log(users.rows[0]);
         return users.rows
+
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
+
+module.exports.update = async (req, res) => {
+    try {
+        const body = req.body;
+        console.log(body);
+        body.users.forEach(async (element) => {
+            console.log("ele",element)
+            const attend = await pool.query("select * from attendence where user_id=$1 and currentdate=$2", [element, body.date]);
+
+            if (attend.rowCount == 0) {
+                console.log(1111);
+                const users = await pool.query("insert into attendence values($1,$2) returning * ", [element, body.date]);
+
+                console.log("11111111",users.rows)
+            }
+        });
+       
+        res.status(200).json();
+        // console.log(users.rows[0]);
+        // return users.rows
 
     } catch (e) {
         console.log(e);

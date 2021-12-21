@@ -27,11 +27,11 @@
 <body >
     <section class="h-100" style="margin-left: 200px; margin-top: 40px;">
         <div class="container h-100">
-             <form method="POST" class="my-login-validation" novalidate="">
+             <form  >
                                 <div class="form-group">
                                     <label for="email">Date</label>
-                                    <input id="email" type="date" class="form-control" name="date" value="" required
-                                        autofocus>
+                                    <input id="date" type="date" class="form-control" name="date" value="" required
+                                        autofocus >
                                    
                                 </div>
     
@@ -51,21 +51,32 @@
                                         
                                     
                                 <tbody>
+                                    <% for(var i=0;i<users.length;i++){%>
                                     <tr>
-                                        <th><input type="checkbox" name="" id=""></th>
-                                        <th scope="row"></th>
-                                        <td><%-users[0].name%></td>
-                                        <td><%-users[0].email%></td>
-                                        <td><%-users[0].phoneno%></td>
+                                       
                                            
+                                        <td><input type="checkbox" value="<%-users[i].user_id%>" class="checkboxspecial" name="" id=""></td>
+                                        <td>
+                                            <%-users[i].name%>
+                                        </td>
+                                        <td>
+                                            <%-users[i].email%>
+                                        </td>
+                                        <td>
+                                            <%-users[i].phoneno%>
+                                        </td>
+                                        
+                                       
+                                      
                                         
                                     </tr>
+                                    <%}%>
                                     
                                 </tbody>
                             </table>
                             </div>
                                 <div class="form-group m-0">
-                                    <button type="submit" class="btn btn-primary btn-block">
+                                    <button type="submit" class="btn btn-primary btn-block" onclick="submitattendence()">
                                         Submit
                                     </button>
                                 </div>
@@ -73,9 +84,43 @@
                             </form>
                            
         </div>
+        <p id="success"></p>
     </section>
     <script>
-       
+        const date=new Date();
+        console.log(date);
+    //     const d=date.toLocaleDateString();
+    //     console.log(d);
+    //    document.getElementById("date").max=d;
+
+    async function submitattendence(){
+        var id=[];
+        var checkboxes=document.getElementsByClassName("checkboxspecial");
+        console.log(checkboxes[0].value);
+
+
+        for(var i=0;i<checkboxes.length;i++){
+            if(checkboxes[i].checked==true){
+                id.push(checkboxes[i].value);
+            }
+        }
+
+        console.log(id);
+
+         const form = document.querySelector('form');
+         const date=form.date.value;
+      const res=  await fetch("/attendence/update",{
+            credentials: "include",
+            method: "POST",
+            body: JSON.stringify({ users:id,date:date }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+
+        console.log(res);
+        if(res.status==200){
+            document.getElementById("success").value="Inserted Successfully ";
+        }
+    }
     </script>
 </body>
 
