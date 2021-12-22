@@ -57,7 +57,7 @@ const loginvalidators = [
         .withMessage("Provide Password of length 6-20"),
 
 ];
-router.get('/', (req, res) => res.render('registration', { layout: false }));
+router.get('/', (req, res) => res.render('homepage.ejs', { layout: false }));
 
 router.post("/register", registerValidators,async (req, res) => {
     try {
@@ -69,6 +69,7 @@ router.post("/register", registerValidators,async (req, res) => {
 })
 
 router.get('/login', (req, res) => res.render('login', { layout: false }));
+router.get('/register', (req, res) => res.render('registration', { layout: false }));
 
 router.post("/login", loginvalidators, async (req, res) => {
     try {

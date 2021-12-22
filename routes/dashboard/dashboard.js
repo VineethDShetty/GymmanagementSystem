@@ -73,5 +73,58 @@ router.post("/planapply", async (req, res) => {
     }
 })
 
+router.post("/contactus", async (req, res) => {
+    try {
+        await dashboard.contactus(req, res);
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+})
+
+router.get("/contacts", async (req, res) => {
+    try {
+        await authenticate.auth(req, res);
+        const contact = await dashboard.fetchcontacts(req, res);
+        res.render("contact.ejs", { layout: false, contact: contact, user_type: req.body.type, name: req.body.name });
+    } catch (e) {
+        console.log(e);
+
+    }
+})
+
+
+router.post("/contactreply", async (req, res) => {
+    try {
+        await authenticate.auth(req, res);
+        const contact = await dashboard.contactreply(req, res);
+       
+    } catch (e) {
+        console.log(e);
+
+    }
+})
+
+router.post("/deletecontact", async (req, res) => {
+    try {
+        await authenticate.auth(req, res);
+        const contact = await dashboard.delete(req, res);
+
+    } catch (e) {
+        console.log(e);
+
+    }
+})
+
+router.post("/payment", async (req, res) => {
+    try {
+        await authenticate.auth(req, res);
+        const contact = await dashboard.payment(req, res);
+
+    } catch (e) {
+        console.log(e);
+
+    }
+})
 
 module.exports = router;

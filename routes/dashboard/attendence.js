@@ -19,7 +19,7 @@ router.post('/update', async (req, res) => {
     await authenticate.auth(req, res);
     const user = await attendence.update(req, res);
     console.log(user);
-    res.render('attendence.ejs', { layout: false, user_type: req.body.type, name: req.body.name, users: user });
+    
 
 })
 

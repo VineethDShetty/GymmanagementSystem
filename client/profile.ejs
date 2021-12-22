@@ -1,4 +1,13 @@
-<%- include('./partials/navigation') %>
+<% if(user_type=="U" ){%>
+    <%- include('./partials/navigation') %>
+        <%}%>
+
+            <%if(user_type=="A"){%>
+                <%- include('./partials/navigationadmin') %>
+                    <%}%>
+                        <% if(user_type=="T" ){%>
+                            <%- include('./partials/navigationtrainer') %>
+                                <%}%>
 
 <%/*%>
 <!DOCTYPE html>

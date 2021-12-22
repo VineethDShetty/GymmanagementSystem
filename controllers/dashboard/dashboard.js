@@ -1,5 +1,7 @@
 const { user } = require("pg/lib/defaults");
 const pool = require("../../utils/db-config");
+const nodemailer = require("nodemailer")
+const sendmail=require("../../controllers/auth/sendmail")
 
 
 module.exports.fetchplan = async (req, res) => {
@@ -106,7 +108,7 @@ module.exports.planapply = async (req, res) => {
             
         }
         else {
-            await pool.query("update user_plan_details set planid=$1 where user_id=$2 and sdate>=$3 and sdate<=$4", [id, req.body.user, date, date3]);
+            await pool.query("update user_plan_details set planid=$1 where user_id=$2 and edate>=$3 and edate<=$4", [id, req.body.user, date, date3]);
         }
 
 
@@ -161,3 +163,161 @@ module.exports.update = async (req, res) => {
         res.sendStatus(500);
     }
 }
+
+
+
+module.exports.contactus = async (req, res) => {
+    try {
+        const body = req.body;
+        console.log(123,body);
+
+       const contact= await pool.query("insert into contact (email,name,phoneno,message) values ($1,$2,$3,$4) returning *", [body.email, body.name, body.phoneno, body.subject])
+        
+        if (contact.rowCount == 1) {
+            const html = `<h3 style="font-family: aerial ;">Hi ${contact.rows[0].name}!!</h3>
+
+
+     <p style="font-family: aerial;">
+
+      We have received your message .Our Team will evaluate your request and get back to you soon ..
+      Thank you.<br><br>
+     
+     
+     
+     <b>Best regards,</b><br>
+
+     GYM Management System <br>
+     (5 th Sem D sec)<br>
+    NMAMIT,nitte<br>
+     Nitte ,Udupi - 574110
+     
+        
+     </p>`
+            const mailoptions = {
+                from: "=vineethshetty1111@gmail.com",
+                to: `${contact.rows[0].email}`,
+                subject: "The Request is Received",
+                text: ``,
+                html: html
+            }
+            await sendmail.sendmail(mailoptions);
+      }
+
+
+
+        res.status(200).json();
+        // console.log(users.rows[0]);
+        // return users.rows
+
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
+
+
+
+module.exports.fetchcontacts = async (req, res) => {
+    try {
+        const contact = await pool.query("select * from contact where status=$1", [false]);
+        console.log(contact.rows[0]);
+        return contact.rows;
+
+
+
+       
+        // console.log(users.rows[0]);
+        // return users.rows
+
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
+
+
+module.exports.contactreply = async (req, res) => {
+    try {
+        const body = req.body;
+        console.log(123, body);
+
+        const contact = await pool.query("select * from contact where contactid=$1", [body.contactid]);
+        
+            const html = `<h3 style="font-family: aerial ;">Hi ${contact.rows[0].name}!!</h3>
+
+
+     <p style="font-family: aerial;">
+
+     We have Evaluated your Feedback and our team as sent the below Solution.
+
+     <pre>${body.message}</pre>
+     
+     
+     
+     <b>Best regards,</b><br>
+
+     GYM Management System <br>
+     (5 th Sem D sec)<br>
+    NMAMIT,nitte<br>
+     Nitte ,Udupi - 574110
+     
+        
+     </p>`
+            const mailoptions = {
+                from: "=vineethshetty1111@gmail.com",
+                to: `${contact.rows[0].email}`,
+                subject: "Response to the Feedback",
+                text: ``,
+                html: html
+            }
+            await sendmail.sendmail(mailoptions);
+       
+
+
+
+        res.status(200).json();
+        // console.log(users.rows[0]);
+        // return users.rows
+
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
+
+
+module.exports.delete = async (req, res) => {
+    try {
+        console.log(req.query.id);
+        await pool.query("update contact set status=$1 where contactid=$2", [true, req.query.id]);
+        
+        res.status(200).json();
+
+
+
+
+        // console.log(users.rows[0]);
+        // return users.rows
+
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
+
+module.exports.payment = async (req, res) => {
+    try {
+        console.log(req.query.id);
+        await pool.query("update user_plan_details set payment_status=$1 where user_id=$2", [true, req.query.id]);
+        res.status(200).json();
+
+
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
+
+
+
+

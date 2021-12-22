@@ -1,5 +1,14 @@
+<% if(user_type=="U" ){%>
+    <%- include('./partials/navigation') %>
+        <%}%>
 
-<%- include('./partials/navigation') %>
+            <%if(user_type=="A"){%>
+                <%- include('./partials/navigationadmin') %>
+                    <%}%>
+                        <% if(user_type=="T" ){%>
+                            <%- include('./partials/navigationtrainer') %>
+                                <%}%>
+    
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,6 +18,18 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
     <style>
         td{
             padding: 10px;
@@ -16,36 +37,37 @@
     </style>
 </head>
 <body>
-    <table class="table" style="margin-left: 300px;">
-        <thead class="thead-dark">
+    <section class="h-100" style="margin-left: 200px; margin-top: 40px;">
+    <table class="table" >
+        <thead >
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Balance Amount</th>
+                <th scope="col">Pay</th>
+               
             </tr>
         </thead>
         <tbody>
+            <% for(var i=0;i<list.length;i++){%>
             <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+              
+                <td><%-list[i].name%></td>
+                <td>
+                    <%-list[i].email%>
+                </td>
+                <td><%-list[i].sum%></td>
+                <td><button type="submit" class="btn btn-info" data-toggle="modal" onclick="paid('<%-list[i].user_id%>')" data-target="#exampleModalCenter"
+                    >Paid</button></td>
             </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
+            <%}%>
+            
         </tbody>
     </table>
+    </section>
+
+    
     <%/*%>
     <table style="margin-left: 200px; margin-top:30px">
 
@@ -66,5 +88,55 @@
 
     </table>
     <%*/%>
+
+
+    <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" style="margin-top: 100px;" role="document">
+            <form>
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Confirmation</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+    
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                           
+                            Are you sure Payment is completed ?
+    
+                        </div>
+    
+                    </div>
+                    <div class=" d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary" style="margin-bottom: 10px;"
+                            onclick="payment()">Yes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        async function paid(i){
+           localStorage.setItem("paid",i);
+            console.log("i",i);
+        }
+        async function payment(){
+            const user_id=localStorage.getItem("paid");
+
+            const res=await fetch(`/payment?id=${user_id}`,{
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                })
+            if (res.status == 200) {
+                location.reload();
+            }
+            
+
+        }
+    </script>
 </body>
 </html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+    <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/my-login.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/my-login.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+
+    <style>
+        #contact {
+            width: 100%;
+            height: 100%;
+        }
+
+        .contain {
+            background-image: url("/img/homecover.jpg");
+            background-size: cover;
+            height: 800px;
+            /* filter: blur(8px);
+  -webkit-filter: blur(2px); */
+
+        }
+
+        .section-header {
+            text-align: center;
+            margin: 0 auto;
+            padding: 20px 0;
+            font-size: 26px;
+            color: #000;
+        }
+
+        .contact-wrapper {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            max-width: 1000px;
+        }
+
+        /* Left contact page */
+        .form-horizontal {
+            width: 400px;
+            font-family: 'Lato';
+            font-weight: 400;
+        }
+
+        .form-control {
+            width: 400px;
+            height: 32px;
+            background-color: #000;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        textarea {
+            width: 400px;
+            background-color: #000;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        button {
+            margin-top: 10px;
+            margin-left: 25%;
+            height: 34px;
+            width: 200px;
+            overflow: hidden;
+            transition: all .2s ease-in-out;
+            background-color: darkgoldenrod;
+            letter-spacing: 2px
+        }
+
+        .alt-send-button {
+            width: 400px;
+            height: 34px;
+            transition: all .2s ease-in-out;
+        }
+
+        .send-text {
+            display: block;
+            margin-top: 10px;
+            font: 700 12px 'Lato', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        button:hover {
+            background-color: #808080;
+        }
+
+        /* Begin Right Contact Page */
+        .direct-contact-container {
+            max-width: 600px;
+        }
+
+        /* Location, Phone, Email Section */
+        .contact-list {
+            list-style-type: none;
+            margin-left: 10px;
+            padding-right: 20px;
+        }
+
+        .list-item {
+            line-height: 4;
+            color: black;
+            margin-left: 0%;
+        }
+
+        .contact-text {
+            font: 300 18px 'Lato', sans-serif;
+            letter-spacing: 1.9px;
+            color: black;
+        }
+
+        .place {
+            margin-left: 62px;
+        }
+
+        .phone {
+            margin-left: 56px;
+        }
+
+        .gmail {
+            margin-left: 53px;
+        }
+
+        .contact-text a {
+            color: black;
+            text-decoration: none;
+            transition-duration: 0.2s;
+        }
+
+        .contact-text a:hover {
+            background: #fff;
+            text-decoration: none;
+        }
+
+        /* Social Media Icons */
+        .social-media-list {
+            position: relative;
+            font-size: 22px;
+            text-align: center;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .social-media-list li a {
+            color: darkgoldenrod;
+        }
+
+        .social-media-list li {
+            position: relative;
+            display: inline-block;
+            height: 60px;
+            width: 60px;
+            margin: 10px 3px;
+            line-height: 65px;
+            border-radius: 50%;
+            color: #fff;
+            background-color: rgb(27, 27, 27);
+            cursor: pointer;
+            transition: all .2s ease-in-out;
+        }
+
+        .social-media-list li:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 50%;
+            opacity: 0;
+            box-shadow: 0 0 0 1px #fff;
+            transition: all .2s ease-in-out;
+        }
+
+        .social-media-list li:hover {
+            background-color: #fff;
+        }
+
+        .social-media-list li:hover:after {
+            opacity: 1;
+            transform: scale(1.12);
+            transition-timing-function: cubic-bezier(0.37, 0.74, 0.15, 1.65);
+        }
+
+        .social-media-list li:hover a {
+            color: #000;
+        }
+
+        .copyright {
+            font: 200 14px 'Oswald', sans-serif;
+            color: #555;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        hr {
+            border-color: rgba(255, 255, 255, .6);
+        }
+
+        nav.page-navigation {
+            width: 80px;
+            background-color: #ebebeb;
+            position: fixed;
+            top: 10%;
+            left: 0;
+        }
+
+        nav.page-navigation li {
+            width: 100%;
+        }
+
+        nav.page-navigation a {
+            padding: 0.6em 10%;
+            width: 80%;
+        }
+
+
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .topnav a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        .top-navigation{
+            padding-top: 30px;
+            margin-left: 850px;
+            padding-left: 50px;
+        }
+       
+
+       
+
+        
+
+        @media screen and (max-width: 600px) {
+            .topnav a:not(:first-child) {
+                display: none;
+            }
+
+            .topnav a.icon {
+                float: right;
+                display: block;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .topnav.responsive {
+                position: relative;
+            }
+
+            .topnav.responsive .icon {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
+            .topnav.responsive a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+        }
+        .tags{
+            background-color: #555;
+            margin-left: 30px;
+             width:100px;
+        }
+        .active{
+            text-decoration: none;
+            
+        }
+    </style>
+</head>
+
+<body>
+   
+    <!-- <nav >
+        <ul >
+       <li> <a href="#contact">Contact US</a></li>
+        </ul>
+    </nav> -->
+    <!-- <!-- <div class="contain">
+    <pre class="gd-section pad-large" style="margin-left: 200px; color:whitesmoke">
+   Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam quod sapiente debitis 
+   eveniet animi, ad accusantium beatae quas nostrum. Eveniet rerum ullam modi? Impedit, 
+   veritatis! Nesciunt amet a delectus necessitatibus tempora quasi quod deleniti, esse, 
+   minus voluptatem expedita assumenda tenetur omnis quia iure voluptates? Magni 
+   exercitationem odit assumenda itaque eum.
+          </pre> 
+    
+          
+        </div> -->
+
+
+    <div class="contain">
+        <div class="top-navigation" id="myTopnav">
+           <button class=" btn tags"> <a href="#home"  style="text-decoration: none; color:white">Home</a></button>
+        <button class=" btn tags"> <a href="#contact" style="text-decoration: none; color:white">Contact</a></button>
+        <button class=" btn tags"> <a href="#about" style="text-decoration: none; color:white">About us</a>
+        <button class=" btn tags" style="width:150px"> <a href="/login" style="text-decoration: none; color:white">Signin/Signup</a>
+        </div>
+      
+    </div>
+
+    <section id="about">
+        <h3>About US</h3>
+        <p>dsnjdgsajdhgashjdhgasft
+            dnsnajgdsajdhgysa
+            d';shdhasgdhasg
+            dbshdsagdhsagdasgdashdgf
+            ndjsagdsahgsah
+            djasjdgasgdsa
+            adnsadgsahdgsahdgsah
+            dsandhasdhgadgdhasgd
+            ndsbhdfashdgahhdgashdgahdssg
+            dasmdgas
+        </p>
+    </section>
+    <section id="contact" class="gd-section pad-large">
+        <h3 class="section-header">CONTACT US</h3>
+        <div style="text-align:center;font-size:20px">Want to get in touch? We'd love to hear from you. Here's how you
+            can
+            reach us...</div><br />
+        <div class="contact-wrapper">
+            <!-- Left contact page -->
+            <form  id="contact-form" class="form-horizontal" role="form" >
+                <div class="form-group">
+                    <input type="text" class="form-control" id="name" placeholder="NAME" name="name" value="" required>
+                </div><br />
+                <div class="form-group">
+                    <input type="tel" class="form-control" id="phone" placeholder="MOBILE NO." name="phone" value=""
+                        required>
+                </div><br />
+                <div class="form-group">
+                    <input type="email" class="form-control" id="email" placeholder="EMAIL" name="email" value=""
+                        required>
+                </div><br />
+                <textarea rows="10" placeholder="MESSAGE" name="message" required></textarea>
+                <p style="color:green" id="#submission"></p>
+                <button type="submit" class="btn btn-primary" style="margin-left: 200px; margin-top: 50px;" onclick="contactus()"><b>SUBMIT</b></button>
+            </form>
+            <!-- Left contact page -->
+            <div class="direct-contact-container">
+                <ul class="contact-list">
+                    <li class="list-item">
+                        <ion-icon name="location-outline"></ion-icon>
+                        <span class="contact-text place">Nitte, Udupi, Karnataka</span>
+                    </li>
+                    <li class="list-item">
+                        <ion-icon name="call-outline"></ion-icon>
+                        <span class="contact-text phone"><a href="tel:1-212-555-5555" title="Give me a call">(212)
+                                555-2368</a></span>
+                    </li>
+                    <li class="list-item">
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <span class="contact-text gmail"><a href="mailto:#"
+                                title="Send me an email">hotelroyalinternational@gmail.com</a></span>
+                    </li>
+                </ul>
+                <hr>
+                <ul class="social-media-list">
+                    <li>
+                        <a href="#" target="_blank" class="contact-icon">
+                            <ion-icon name="logo-twitter"></ion-icon>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank" class="contact-icon">
+                            <ion-icon name="logo-instagram"></ion-icon>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank" class="contact-icon">
+                            <ion-icon name="logo-facebook"></ion-icon>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank" class="contact-icon">
+                            <ion-icon name="logo-youtube"></ion-icon>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="copyright">&copy; ALL OF THE RIGHTS RESERVED</div>
+            </div>
+        </div>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    </section>
+<script>
+  async function contactus(){
+    const form = document.querySelector('form');
+
+    const name=form.name.value;
+    const email=form.email.value;
+    const phoneno=form.phone.value;
+    const subject=form.message.value;
+    console.log("111",name);
+
+   const res=  await fetch ("/contactus",{
+         credentials: "include",
+        method: "POST",
+        body: JSON.stringify({name:name,email:email,phoneno:phoneno,subject:subject}),
+        headers: { 'Content-Type': 'application/json' }
+    })
+
+    console.log(res);
+    if(res.status==200){
+        document.getElementID("submission").value="Submitted Successfully"
+    }
+    
+
+  }
+</script>
+</body>
+
+</html>

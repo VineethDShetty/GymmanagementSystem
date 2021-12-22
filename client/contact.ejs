@@ -1,0 +1,170 @@
+<% if(user_type=="U" ){%>
+    <%- include('./partials/navigation') %>
+        <%}%>
+
+            <%if(user_type=="A"){%>
+                <%- include('./partials/navigationadmin') %>
+                    <%}%>
+                        <% if(user_type=="T" ){%>
+                            <%- include('./partials/navigationtrainer') %>
+                                <%}%>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/my-login.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <style>
+        .contacts{
+            margin-left: 300px;
+            margin-bottom: 30px;
+        }
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 80%;
+            height:150px;
+            margin-top: 30px;
+        }
+    
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+    
+        .container {
+            padding: 2px 16px;
+        }
+        .design {
+            margin-left: 700px;
+            padding-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="contacts">
+       <% for(var i=0;i<contact.length;i++){%>
+        <div class="card">
+            
+            <div class="container">
+                <h4><b><%-contact[i].name%></b></h4>
+                <p><%-contact[i].message%></p>
+                <div class="design">
+                <button class="btn btn-danger " data-toggle="modal" data-target="#exampleModalCenter2" onclick="delete1('<%=contact[i].contactid%>')">Close</button>
+                <button class="btn btn-info " data-toggle="modal" data-target="#exampleModalCenter" onclick="reply('<%=contact[i].contactid%>')">Reply</button>
+                </div>
+            </div>
+        </div>
+           <%}%>
+    </div>
+
+<div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" style="margin-top: 100px;" role="document">
+           <form>
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Reply</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <label data-error="wrong" data-success="right" for="defaultForm-email">Message</label>
+
+                        <textarea type="text" id="defaultForm-email" class="form-control validate" name="message"></textarea>
+
+                    </div>
+                   
+                </div>
+                <div class=" d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary" style="margin-bottom: 10px;"
+                        onclick="replymessage()">Submit</button>
+                </div>
+            </div>
+    </form>
+    </div>
+</div>
+
+
+<div class="modal fade " id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" style="margin-top: 100px;" role="document">
+        
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Reply</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body mx-3">
+                   <h6>Do you Want to Delete the Question? </h6>
+
+                </div>
+                <div class=" d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary" style="margin-bottom: 10px;"
+                        onclick="deletemsg()">Yes</button>
+                </div>
+            </div>
+       
+    </div>
+</div>
+
+    <script>
+    async function reply(i){
+        console.log(i);
+        localStorage.setItem("replyid",i);
+    }
+
+    async function replymessage(){
+        const form=document.querySelector("form");
+        const msg=form.message.value;
+        const id=localStorage.getItem("replyid");
+
+       const task=  await fetch ("/contactreply",{
+            method: 'POST',
+            body: JSON.stringify({ message:msg,contactid:id}),
+            headers: { 'Content-Type': 'application/json' }
+        })
+        if(task.status==200){
+            location.reload();
+        }
+    }
+
+    async function delete1(j){
+        console.log(j);
+        localStorage.setItem("deletedid", j);
+    }
+
+    async function deletemsg(){
+        const cid=localStorage.getItem("deletedid");
+        const task = await fetch(`/deletecontact?id=${cid}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        })
+        if (task.status == 200) {
+            location.reload();
+        }
+    }
+         
+       
+    </script>
+</body>
+</html>
