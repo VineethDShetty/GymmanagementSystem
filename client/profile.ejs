@@ -123,32 +123,33 @@
     <div class="container rounded bg-white mt-5 mb-5" style="margin-left: 600px; padding-left: 100px; width:400px; ">
         <div class="row">
             <div class="col-md-5 border-right">
-                <div class="p-3 py-5" >
+                <div class="p-3 py-5"  style="width: 400px;">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="text-right">Profile Settings</h4>
+                        <h4 class="text-right" style="margin-left: 0px;">Profile Settings</h4>
                     </div>
                     <form  >
-                        <div class="row mt-2">
-                            <div class="col-md-6"><label class="labels">Name</label>
+                        <div class="row mt-2" style="margin-bottom: 30px;">
+                            <div class="col-md-6"><label >Name</label>
                                 <input type="text" name="name"
                                     class="form-control" placeholder="Username" value="<%-profile.name%>"  style="width: 200px;" ></div>
                         </div>
-                        <div class="row mt-3">
-                            <div class="col-md-12"><label class="labels">Email ID</label><input type="email"
+                        <div class="row mt-3" >
+                            <div class="col-md-12" style="margin-bottom: 30px;"><label class="labels">Email ID</label><input type="email"
                                     class="form-control"  name="email" value="<%-profile.email%>" style="width: 200px;" ></div>
-                            <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text"
+                            <div class="col-md-12" style="margin-bottom: 30px;"><label class="labels">Mobile No </label><input type="text"
                                     class="form-control"  name="phoneno" style="width: 200px;" placeholder="enter phone number" value="<%-profile.phoneno%>"
                                     ></div>
-                            <div class="col-md-12"><label class="labels">Address </label><input type="text"
+                            <div class="col-md-12" style="margin-bottom: 30px;" ><label class="labels">Address </label><input type="text"
                                     name="address" class="form-control" style="width: 200px;" name="address" placeholder="Enter Address" value="<%-profile.address%>"></div>
                         </div> 
                         
-                        <div class="mt-5 text-center">
-                            <button class="btn btn-info profile-button" style="margin-left: 150px; width: 80px;" type="submit" onclick="saveprofile()" >Save</button>
+                        <div class="mt-5 text-center" style="margin-bottom: 30px;">
+                            <button class="btn btn-info profile-button" style="margin-left: 30px; width: 80px;" type="submit" onclick="saveprofile()" >Save</button>
                         </div>
+                        </form>
                 </div>
             </div>
-            </form>
+           
 
         </div>
     </div>
