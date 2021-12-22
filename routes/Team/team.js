@@ -16,6 +16,7 @@ router.get('/team', async (req, res) => {
         // if (req.body.type == 'U') {
         const plan = await teams.fetchmember(req, res);
         console.log(221234);
+        
         console.log(222, req.body.type);
         res.render('team', { layout: false, list: plan, user_type: req.body.type, name: req.body.name });
         return;

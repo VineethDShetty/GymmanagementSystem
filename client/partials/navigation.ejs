@@ -7,13 +7,14 @@
 </head>
 
 <body>
-
+   
     <div class="wrapper">
         <div class="sidebar">
         <i class="fas fa-bars" style="color:white"></i>
             <ul>
                 <li><a href="/home"><i class="fas fa-home"></i>Home</a></li>
                 <li><a href="/profile"><i class="fas fa-user"></i>Profile</a></li>
+                <li> <a onclick="logout()" class="log"><i class="fas fa-sign-out-alt"></i>Logout </a></li>
                 
               
                
@@ -23,6 +24,29 @@
         </div>
         
     </div>
+
+    <script>
+        async function logout() {
+            console.log(22);
+            try {
+                await fetch(`/logout`, {
+                    credentials: 'include',
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                }).then(
+                    (resp) => {
+                        console.log(11111111, resp);
+                        if (resp.status == 200) {
+                            location.assign("/")
+                        }
+                    })
+            } catch (e) {
+                console.log(e);
+            }
+
+
+        }
+    </script>
 
 </body>
 

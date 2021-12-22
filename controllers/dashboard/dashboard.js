@@ -92,7 +92,7 @@ module.exports.planapply = async (req, res) => {
         console.log(date2);
         date3.setDate(date.getDate() + 30);
         console.log(date3);
-
+        const plans = await pool.query("select * from plans where planid=$1", [id]);
         const plan = await pool.query("select * from traineroptions where planid=$1", [id]);
         console.log(plan.rows[0])
         const tid = plan.rows[0].trainerid;
@@ -102,13 +102,13 @@ module.exports.planapply = async (req, res) => {
         console.log(user_plan.rows);
 
         if (user_plan.rowCount == 0) {
-            const user_plan_insert = await pool.query("insert into user_plan_details  (user_id,sdate,edate,trainerid,planid)values($1,$2,$3,$4,$5) returning *", [req.body.user,date,date3,tid,id])
+            const user_plan_insert = await pool.query("insert into user_plan_details  (user_id,sdate,edate,trainerid,planid,amt)values($1,$2,$3,$4,$5,$6) returning *", [req.body.user,date,date3,tid,id,plans.rows[0].price])
         
             console.log(user_plan_insert.rows[0]);
             
         }
         else {
-            await pool.query("update user_plan_details set planid=$1 where user_id=$2 and edate>=$3 and edate<=$4", [id, req.body.user, date, date3]);
+            await pool.query("update user_plan_details set planid=$1 ,amt=$5 where user_id=$2 and edate>=$3 and edate<=$4", [id, req.body.user, date, date3,plans.rows[0].price]);
         }
 
 
@@ -307,8 +307,9 @@ module.exports.delete = async (req, res) => {
 
 module.exports.payment = async (req, res) => {
     try {
-        console.log(req.query.id);
-        await pool.query("update user_plan_details set payment_status=$1 where user_id=$2", [true, req.query.id]);
+        console.log(123, req.query.id);
+        const i = 0;
+        await pool.query("update user_plan_details set payment_status=$1,amt=$3 where user_id=$2 ", [true, req.query.id,i]);
         res.status(200).json();
 
 

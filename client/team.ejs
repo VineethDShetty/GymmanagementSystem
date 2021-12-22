@@ -58,8 +58,14 @@
                     <%-list[i].email%>
                 </td>
                 <td><%-list[i].sum%></td>
+               <% if(list[i].sum!=0){%>
                 <td><button type="submit" class="btn btn-info" data-toggle="modal" onclick="paid('<%-list[i].user_id%>')" data-target="#exampleModalCenter"
                     >Paid</button></td>
+                <%}%>
+                <% if(list[i].sum==0){%>
+                    <td><button type="submit" class="btn btn-secondary " 
+                           disabled>Payment Done</button></td>
+                    <%}%>
             </tr>
             <%}%>
             
