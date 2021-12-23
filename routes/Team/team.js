@@ -5,7 +5,7 @@ const teams = require("../../controllers/Team/teamcontroller");
 
 const { body } = require("express-validator");
 
-
+// Fetching the team page 
 router.get('/team', async (req, res) => {
 
     try {
@@ -14,6 +14,7 @@ router.get('/team', async (req, res) => {
         // console.log(22, user);
 
         // if (req.body.type == 'U') {
+        //fetchhing all the members
         const plan = await teams.fetchmember(req, res);
         console.log(221234);
         

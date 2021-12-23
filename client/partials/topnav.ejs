@@ -7,13 +7,42 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <style>
+        .topnav{
+            background-color:#4b4276;
+            height: 80px;
+            position: relative;
+            
+        }
+        .logout{
+           /* float:right; */
+           float:right;
+           margin-right: 10px;
+           padding-top: 20px;
+           
+       }
        
+       
+       .lists{
+           margin-bottom: 20px;
+       }
+       .log{
+           cursor: pointer;
+       }
     </style>
 </head>
 
 <body>
+    <div class="topnav">
     
+
+    <ul class="logout">
+        <li>
+            <a onclick="logout()" class="log"><span class="glyphicon glyphicon-log-in">Logout</span> </a>
+        </li>
+    </ul>
+    </div>
     
+
     <div class="sidenav">
         <ul>
             

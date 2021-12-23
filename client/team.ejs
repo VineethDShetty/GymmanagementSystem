@@ -44,6 +44,7 @@
                 
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
+                <th scope="col">Plan</th>
                 <th scope="col">Balance Amount</th>
                 <th scope="col">Pay</th>
                
@@ -56,6 +57,9 @@
                 <td><%-list[i].name%></td>
                 <td>
                     <%-list[i].email%>
+                </td>
+                <td>
+                    <%-list[i].plan_name%>
                 </td>
                 <td><%-list[i].sum%></td>
                <% if(list[i].sum!=0){%>
