@@ -1,4 +1,4 @@
-This is web based application built to manage the Gym Operations like creating of plans, choosing the plans and tracking of user activity in  the Gym.
+## This is web based application built to manage the Gym Operations like creating of plans, choosing the plans and tracking of user activity in  the Gym.
 
 To build the Gym Management System we have used Nodejs in Backend ,EJS ,HTML,CSS ,BootStrap in the Frontend and POstrgreSQL as the Database.
 
@@ -36,7 +36,7 @@ Password:12345678
 Email:trainer@gmail.com
 Password:12345678
 
-3. Trainer
+3. User
 Email:user1@gmail.com
 Password:12345678
 
