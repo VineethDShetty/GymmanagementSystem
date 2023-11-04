@@ -27,18 +27,7 @@ Now to see the result open any browser and and type    localhost:2000
 
 This will start the project and the project consists of three tier User ,Admin,trainer
 
-Accounts :
-1. Admin
-Email:vineethkini2001@gmail.com
-Password:12345678
 
-2. Trainer
-Email:trainer@gmail.com
-Password:12345678
-
-3. User
-Email:user1@gmail.com
-Password:12345678
 
 
 
